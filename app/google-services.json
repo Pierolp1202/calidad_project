@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "261912493924",
+    "firebase_url": "https://serviexpress-fe39e.firebaseio.com",
+    "project_id": "serviexpress-fe39e",
+    "storage_bucket": "serviexpress-fe39e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261912493924:android:52e181c84ed6aa9e",
+        "android_client_info": {
+          "package_name": "com.example.pierolpw10.serviexpress"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "261912493924-240bqaqp5n1dhg9gfoatond3sle3op4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXlGbWyQxmcwqx9LoR0KdKWm_MYK0kNuw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
