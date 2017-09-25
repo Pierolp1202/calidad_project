@@ -1,66 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    tools:context="com.example.pierolpw10.serviexpress.activities.RegisterActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillViewport="true">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_marginTop="60dp"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
-        android:src="@drawable/profile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:civ_border_width="1dp"
-        app:civ_border_color="#FF000000"/>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        tools:context="com.example.pierolpw10.serviexpress.activities.RegisterActivity">
 
-    <EditText
-        android:layout_marginTop="30dp"
-        android:drawablePadding="45dp"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_person_black_24dp"
-        android:hint="Usuario"
-        android:id="@+id/et_user"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginTop="60dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:src="@drawable/profile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#FF000000"/>
 
-    <EditText
-        android:layout_marginTop="15dp"
-        android:drawablePadding="30dp"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_lock_black_24dp"
-        android:hint="Contraseña"
-        android:id="@+id/et_pass"/>
+        <EditText
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:drawablePadding="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_person_black_24dp"
+            android:hint="Nombres"
+            android:id="@+id/et_name"/>
 
-    <EditText
-        android:layout_marginTop="12dp"
-        android:drawablePadding="50dp"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_email_black_24dp"
-        android:hint="Correo"
-        android:id="@+id/et_mail"/>
+        <EditText
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:drawablePadding="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_person_black_24dp"
+            android:hint="Apellidos"
+            android:id="@+id/et_last_name"/>
 
-    <EditText
-        android:layout_marginTop="15dp"
-        android:drawablePadding="40dp"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_room_black_24dp"
-        android:hint="Dirección"
-        android:id="@+id/et_address"/>
+        <EditText
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:drawablePadding="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_person_black_24dp"
+            android:hint="Usuario"
+            android:id="@+id/et_user"/>
 
-    <ImageButton
-        android:padding="10dp"
-        android:layout_marginTop="45dp"
-        android:background="@drawable/rounded_button"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt_register"
-        android:src="@drawable/ic_chevron_right_black_24dp"/>
+        <EditText
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:drawablePadding="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_lock_black_24dp"
+            android:hint="Contraseña"
+            android:id="@+id/et_pass"/>
 
-</LinearLayout>
+        <EditText
+            android:gravity="center"
+            android:layout_marginTop="12dp"
+            android:drawablePadding="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_email_black_24dp"
+            android:hint="Correo"
+            android:id="@+id/et_email"/>
+
+        <EditText
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:drawablePadding="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_room_black_24dp"
+            android:hint="Dirección"
+            android:id="@+id/et_address"/>
+
+        <ImageButton
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/rounded_button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_register"
+            android:src="@drawable/ic_chevron_right_black_24dp"/>
+
+    </LinearLayout>
+
+
+</ScrollView>

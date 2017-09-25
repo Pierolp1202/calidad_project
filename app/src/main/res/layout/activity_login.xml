@@ -16,8 +16,8 @@
         android:src="@drawable/logo"/>
     
     <EditText
+        android:gravity="center"
         android:layout_marginTop="15dp"
-        android:drawablePadding="45dp"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_person_black_24dp"
@@ -25,8 +25,8 @@
         android:id="@+id/et_user"/>
     
     <EditText
+        android:gravity="center"
         android:layout_marginTop="15dp"
-        android:drawablePadding="30dp"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_lock_black_24dp"
@@ -43,7 +43,6 @@
         android:src="@drawable/ic_chevron_right_black_24dp"/>
     
     <LinearLayout
-        android:padding="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -54,10 +53,11 @@
             android:text="¿No tienes cuenta?" />
         
         <TextView
+            android:padding="5dp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Registrate!"
+            android:text=" Registrate!"
             android:id="@+id/tv_register"/>
         
     </LinearLayout>
