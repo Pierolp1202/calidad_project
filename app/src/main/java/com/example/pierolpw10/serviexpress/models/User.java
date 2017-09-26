@@ -8,11 +8,20 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     String mail;
+    String username;
     String password;
     String nombres;
     String apellidos;
     String direccion;
     String telefono;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getNombres() {
         return nombres;

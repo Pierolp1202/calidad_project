@@ -24,6 +24,7 @@
             app:civ_border_color="#FF000000"/>
 
         <EditText
+            android:singleLine="true"
             android:gravity="center"
             android:layout_marginTop="30dp"
             android:drawablePadding="10dp"
@@ -34,6 +35,7 @@
             android:id="@+id/et_name"/>
 
         <EditText
+            android:singleLine="true"
             android:gravity="center"
             android:layout_marginTop="15dp"
             android:drawablePadding="10dp"
@@ -44,26 +46,7 @@
             android:id="@+id/et_last_name"/>
 
         <EditText
-            android:gravity="center"
-            android:layout_marginTop="15dp"
-            android:drawablePadding="10dp"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_person_black_24dp"
-            android:hint="Usuario"
-            android:id="@+id/et_user"/>
-
-        <EditText
-            android:gravity="center"
-            android:layout_marginTop="15dp"
-            android:drawablePadding="10dp"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_lock_black_24dp"
-            android:hint="Contraseña"
-            android:id="@+id/et_pass"/>
-
-        <EditText
+            android:singleLine="true"
             android:gravity="center"
             android:layout_marginTop="12dp"
             android:drawablePadding="10dp"
@@ -74,6 +57,30 @@
             android:id="@+id/et_email"/>
 
         <EditText
+            android:singleLine="true"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:drawablePadding="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_person_black_24dp"
+            android:hint="Usuario"
+            android:id="@+id/et_user"/>
+
+        <EditText
+            android:singleLine="true"
+            android:inputType="textPassword"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:drawablePadding="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_lock_black_24dp"
+            android:hint="Contraseña"
+            android:id="@+id/et_pass"/>
+
+        <EditText
+            android:singleLine="true"
             android:gravity="center"
             android:layout_marginTop="15dp"
             android:drawablePadding="10dp"
@@ -84,6 +91,7 @@
             android:id="@+id/et_address"/>
 
         <ImageButton
+            android:singleLine="true"
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:padding="10dp"
