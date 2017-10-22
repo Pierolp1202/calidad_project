@@ -1,7 +1,7 @@
-package com.example.pierolpw10.serviexpress.managers;
+package com.example.pierolpw10.serviexpress.Managers;
 
-import com.example.pierolpw10.serviexpress.models.User;
-import com.example.pierolpw10.serviexpress.utils.FirebaseConstants;
+import com.example.pierolpw10.serviexpress.Models.User;
+import com.example.pierolpw10.serviexpress.Utils.FirebaseConstants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

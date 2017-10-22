@@ -12,7 +12,7 @@
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.pierolpw10.serviexpress.activities.LoginActivity">
+        tools:context="com.example.pierolpw10.serviexpress.Activities.LoginActivity">
 
         <ImageView
             android:layout_marginTop="40dp"

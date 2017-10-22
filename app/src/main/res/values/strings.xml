@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ServiExpress</string>
+
+    <!--Menu-->
+    <string name="drawer_open">Abrir</string>
+    <string name="drawer_close">Cerrar</string>
 </resources>

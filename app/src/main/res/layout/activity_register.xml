@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        tools:context="com.example.pierolpw10.serviexpress.activities.RegisterActivity">
+        tools:context="com.example.pierolpw10.serviexpress.Activities.RegisterActivity">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_marginTop="60dp"

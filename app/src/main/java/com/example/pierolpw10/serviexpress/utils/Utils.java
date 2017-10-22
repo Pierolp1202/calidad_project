@@ -1,8 +1,8 @@
-package com.example.pierolpw10.serviexpress.utils;
+package com.example.pierolpw10.serviexpress.Utils;
 
 import android.widget.EditText;
 
-import com.example.pierolpw10.serviexpress.managers.FirebaseManager;
+import com.example.pierolpw10.serviexpress.Managers.FirebaseManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;

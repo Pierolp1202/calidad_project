@@ -1,4 +1,4 @@
-package com.example.pierolpw10.serviexpress.activities;
+package com.example.pierolpw10.serviexpress.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,20 +9,14 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.pierolpw10.serviexpress.R;
-import com.example.pierolpw10.serviexpress.managers.FirebaseManager;
-import com.example.pierolpw10.serviexpress.models.User;
-import com.example.pierolpw10.serviexpress.utils.FirebaseConstants;
-import com.example.pierolpw10.serviexpress.utils.Utils;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.example.pierolpw10.serviexpress.Managers.FirebaseManager;
+import com.example.pierolpw10.serviexpress.Models.User;
+import com.example.pierolpw10.serviexpress.Utils.FirebaseConstants;
+import com.example.pierolpw10.serviexpress.Utils.Utils;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.pierolpw10.serviexpress.models;
+package com.example.pierolpw10.serviexpress.Models;
 
 import java.io.Serializable;
 
