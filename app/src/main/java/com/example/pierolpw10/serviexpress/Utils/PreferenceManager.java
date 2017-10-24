@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 public class PreferenceManager {
 
     private static final String PREFERENCES_NAME = "AndroidEzi";
+    private static final String PREFERENCE_SESSION = "session";
 
     private static PreferenceManager self;
     private final SharedPreferences mPreferences;
@@ -22,5 +23,15 @@ public class PreferenceManager {
         }
 
         return self;
+    }
+
+    public void setPrefenceSession(String session){
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(PREFERENCE_SESSION, session);
+        editor.apply();
+    }
+
+    public String getPreferenceSession(){
+        return mPreferences.getString(PREFERENCE_SESSION, "");
     }
 }

@@ -1,6 +1,10 @@
 package com.example.pierolpw10.serviexpress.Menu;
 
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,14 +16,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.example.pierolpw10.serviexpress.Activities.LoginActivity;
 import com.example.pierolpw10.serviexpress.Fragments.AccountFragment;
 import com.example.pierolpw10.serviexpress.Fragments.HelpFragment;
 import com.example.pierolpw10.serviexpress.Fragments.HistorialFragment;
 import com.example.pierolpw10.serviexpress.Fragments.HomeFragment;
+import com.example.pierolpw10.serviexpress.Models.User;
 import com.example.pierolpw10.serviexpress.R;
 import com.example.pierolpw10.serviexpress.Utils.PreferenceManager;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +36,8 @@ import java.util.List;
 
 public class FragmentDrawer extends Fragment {
 
-
     TextView tv_nombre;
+    TextView tv_mail;
     RecyclerView drawerList;
 
     private ActionBarDrawerToggle mDrawerToggle;
@@ -38,6 +47,8 @@ public class FragmentDrawer extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
 
     PreferenceManager manager;
+
+    User user;
 
     Fragment fragment = null;
 
@@ -56,6 +67,7 @@ public class FragmentDrawer extends Fragment {
         data.add(new NavDrawerItem("Home",true,true, 0));
         data.add(new NavDrawerItem("Historial",true,true,0));
         data.add(new NavDrawerItem("Help",true,true,0));
+        data.add(new NavDrawerItem("Salir",true,true,0));
         return data;
     }
 
@@ -69,8 +81,17 @@ public class FragmentDrawer extends Fragment {
         view = inflater.inflate(R.layout.fragment_drawer, container, false);
 
         drawerList = (RecyclerView) view.findViewById(R.id.drawerList);
+        tv_nombre = (TextView) view.findViewById(R.id.tv_nombre);
+        tv_mail = (TextView) view.findViewById(R.id.tv_mail);
 
         manager = PreferenceManager.getInstance(getActivity());
+
+        Gson gson = new Gson();
+        user = gson.fromJson(manager.getPreferenceSession(), User.class);
+
+        tv_nombre.setText(user.getNombres() + " " + user.getApellidos());
+        tv_mail.setText(user.getMail());
+
         return view;
     }
 
@@ -157,35 +178,39 @@ public class FragmentDrawer extends Fragment {
     }
 
     private void showDialog() {
-       /* final Dialog dialog = new Dialog(getActivity());
+        manager.setPrefenceSession("");
+        Intent i = new Intent(getActivity(),LoginActivity.class);
+        getActivity().startActivity(i);
+        getActivity().finish();
 
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        dialog.setContentView(R.layout.dialog_logout);
-
-        TextView dialog_si = (TextView)dialog.findViewById(R.id.dialog_si);
-        TextView dialog_no = (TextView)dialog.findViewById(R.id.dialog_no);
-
-        dialog_si.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                manager.logOut();
-                startActivity(new Intent(getActivity(), SplashActivity.class));
-                getActivity().finish();
-            }
-        });
-
-        dialog_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-    */
+//       final Dialog dialog = new Dialog(getActivity());
+//
+//        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+//        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//
+//        dialog.setContentView(R.layout.dialog_logout);
+//
+//        TextView dialog_si = (TextView)dialog.findViewById(R.id.dialog_si);
+//        TextView dialog_no = (TextView)dialog.findViewById(R.id.dialog_no);
+//
+//        dialog_si.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//                manager.logOut();
+//                startActivity(new Intent(getActivity(), SplashActivity.class));
+//                getActivity().finish();
+//            }
+//        });
+//
+//        dialog_no.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        dialog.show();
     }
 }

@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pierolpw10.serviexpress">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,10 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAcXL3y2UxXWF1_eGlPuKl1L0LSrI0s1bA"/>
+            android:value="AIzaSyAcXL3y2UxXWF1_eGlPuKl1L0LSrI0s1bA" />
 
         <activity android:name=".Activities.LoginActivity">
             <intent-filter>
@@ -22,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.MainActivity" />
-        <activity android:name=".Activities.RegisterActivity"></activity>
+        <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".Activities.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>
