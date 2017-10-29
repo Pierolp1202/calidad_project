@@ -15,6 +15,15 @@ public class Worker {
     String password;
     int puntuacion;
     int especialidad;
+    String phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getNombre() {
         return nombre;

@@ -4,12 +4,14 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -201,31 +203,26 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
     public boolean onMarkerClick(Marker marker) {
         switch (marker.getTitle()){
             case "Jorge Gonzales":
-                Toast.makeText(getActivity(),"1",Toast.LENGTH_SHORT).show();
-                openDialog("Jorge Gonzales");
+                openDialog("Jorge Gonzales",1);
                 break;
             case "Willy Wonka":
-                Toast.makeText(getActivity(),"2",Toast.LENGTH_SHORT).show();
-                openDialog("Willy Wonka");
+                openDialog("Willy Wonka",2);
                 break;
             case "Sheldon Cooper":
-                Toast.makeText(getActivity(),"3",Toast.LENGTH_SHORT).show();
-                openDialog("Sheldon Cooper");
+                openDialog("Sheldon Cooper",3);
                 break;
             case "Barry Allen":
-                Toast.makeText(getActivity(),"4",Toast.LENGTH_SHORT).show();
-                openDialog("Barry Allen");
+                openDialog("Barry Allen",4);
                 break;
             case "Slade Wilson":
-                Toast.makeText(getActivity(),"5",Toast.LENGTH_SHORT).show();
-                openDialog("Slade Wilson");
+                openDialog("Slade Wilson",5);
                 break;
         }
 
         return true;
     }
 
-    private void openDialog(String nombre){
+    private void openDialog(String nombre, int esp){
             dialog = new Dialog(getActivity(), R.style.DialogTheme);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.fragment_dialog);
@@ -235,8 +232,46 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
             TextView tv_name = (TextView) dialog.findViewById(R.id.tv_name);
             TextView tv_esp = (TextView) dialog.findViewById(R.id.tv_esp);
             TextView tv_phone = (TextView) dialog.findViewById(R.id.tv_phone);
+            CircleImageView image = (CircleImageView) dialog.findViewById(R.id.profile_image);
 
-            btn_reject.setOnClickListener(new View.OnClickListener() {
+            tv_name.setText("Nombre: " + nombre);
+
+            String esp_st = "Especialidad: ";
+            String phone_st = "";
+
+            switch (esp){
+                case 1:
+                    esp_st += "Gasfitero";
+                    phone_st = "955234694";
+                    image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker1));
+                    break;
+                case 2:
+                    esp_st += "Electricista";
+                    phone_st = "934971548";
+                    image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker2));
+                    break;
+                case 3:
+                    esp_st += "Cerrajero";
+                    phone_st = "942833699";
+                    image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker3));
+                    break;
+                case 4:
+                    esp_st += "Carpintero";
+                    phone_st = "934971548";
+                    image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker4));
+                    break;
+                case 5:
+                    esp_st += "Jardinero";
+                    phone_st = "955234694";
+                    image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker5));
+                    break;
+            }
+
+            tv_esp.setText(esp_st);
+            tv_phone.setText("Telefono: " + phone_st);
+
+        final String finalPhone_st = phone_st;
+        btn_reject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
@@ -246,6 +281,13 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
             btn_accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:"+finalPhone_st));
+                    if (ActivityCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    startActivity(callIntent);
                     dialog.dismiss();
                     createWork();
                 }
