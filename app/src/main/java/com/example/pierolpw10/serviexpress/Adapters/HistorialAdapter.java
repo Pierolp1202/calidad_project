@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.pierolpw10.serviexpress.Models.Work;
 import com.example.pierolpw10.serviexpress.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,36 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.MyHo
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
+        String work = "Trabajo de ";
+        switch (data.get(position).getWork()){
+            case 1:
+                work += "Gasfitería";
+                break;
+            case 2:
+                work = "Electricista";
+                break;
+            case 3:
+                work += "Cerrajería";
+                break;
+            case 4:
+                work += "Carpintería";
+                break;
+            case 5:
+                work += "Jardinería";
+                break;
+            case 6:
+                work += "";
+                break;
+        }
+        holder.tv_work.setText(work);
 
+        holder.tv_worker.setText("Sr(a): " + data.get(position).getWorker());
+
+        holder.tv_date.setText(data.get(position).getDate());
+
+        holder.rating.setRating(data.get(position).getRating());
+
+        Picasso.with(context).load(data.get(position).getWorker_image()).into(holder.worker_image);
     }
 
     @Override

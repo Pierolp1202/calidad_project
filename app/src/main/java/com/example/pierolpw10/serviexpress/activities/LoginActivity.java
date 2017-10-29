@@ -62,27 +62,19 @@ public class LoginActivity extends AppCompatActivity {
             manager.getDatabase().getReference(FirebaseConstants.REF_DATA).child(FirebaseConstants.CHILD_USERS).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    int i = 0;
-                    int j = 0;
                     for (DataSnapshot data : dataSnapshot.getChildren()){
                         User user = new User();
-                        System.out.println("holi1: " + i);
                         for (DataSnapshot data_child : data.getChildren()){
-                            System.out.println("holi2: " + j);
                             user.setPassword(data_child.child("password").getValue(String.class));
                             user.setNombres(data_child.child("nombres").getValue(String.class));
                             user.setDireccion(data_child.child("direccion").getValue(String.class));
                             user.setMail(data_child.child("mail").getValue(String.class));
                             user.setUsername(data_child.child("username").getValue(String.class));
                             user.setApellidos(data_child.child("apellidos").getValue(String.class));
-                            j++;
                         }
                         user.setUsername(data.getKey());
                         users.add(user);
-                        i++;
                     }
-
-                    System.out.println("holi3: " + users.size());
 
                     bt_login.setOnClickListener(new View.OnClickListener() {
                         @Override

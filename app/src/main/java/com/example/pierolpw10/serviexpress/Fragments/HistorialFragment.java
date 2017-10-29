@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.pierolpw10.serviexpress.Adapters.HistorialAdapter;
 import com.example.pierolpw10.serviexpress.R;
 
 /**
@@ -19,7 +20,8 @@ public class HistorialFragment extends Fragment {
 
     RecyclerView rv_historial;
     TextView tv_empty;
-
+    HistorialAdapter adapter;
+    
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,6 +30,16 @@ public class HistorialFragment extends Fragment {
         rv_historial = (RecyclerView) v.findViewById(R.id.rv_historial);
         tv_empty = (TextView) v.findViewById(R.id.tv_empty);
 
+        getData();
+        
         return v;
+    }
+
+    private void getData() {
+
+    }
+
+    private void setDataIntoRv(){
+
     }
 }

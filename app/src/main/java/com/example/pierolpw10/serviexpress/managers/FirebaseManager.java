@@ -17,25 +17,20 @@ import com.google.firebase.database.ValueEventListener;
 public class FirebaseManager {
     private FirebaseDatabase database;
     private DatabaseReference usersReference;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser firebaseUser;
-
-    User user;
+    private DatabaseReference workersReference;
+    private DatabaseReference worksReference;
 
     private static FirebaseManager instance;
 
     public FirebaseManager() {
         database = FirebaseDatabase.getInstance();
         usersReference = database.getReference(FirebaseConstants.REF_DATA).child(FirebaseConstants.CHILD_USERS);
-        firebaseAuth = FirebaseAuth.getInstance();
+        workersReference = database.getReference(FirebaseConstants.REF_DATA).child(FirebaseConstants.WORKERS_REF);
+        worksReference = database.getReference(FirebaseConstants.REF_DATA).child(FirebaseConstants.WORK_REF);
     }
 
     public FirebaseDatabase getDatabase() {
         return database;
-    }
-
-    public void setDatabase(FirebaseDatabase database) {
-        this.database = database;
     }
 
     public static FirebaseManager getInstance(){
@@ -49,56 +44,11 @@ public class FirebaseManager {
         return usersReference;
     }
 
-    public void getUserInfo(){
-        if (firebaseUser!=null){
-            usersReference.child(firebaseUser.getUid()).removeEventListener(userValueEventListener);
-            usersReference.child(firebaseUser.getUid()).addValueEventListener(userValueEventListener);
-        }
+    public DatabaseReference getWorkersReference() {
+        return workersReference;
     }
 
-    ValueEventListener userValueEventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            user = dataSnapshot.getValue(User.class);
-            if(user != null){
-                singleValueEventListener.onSuccess();
-            }else{
-                singleValueEventListener.onError();
-            }
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    };
-
-    //Interfaces
-    private OnSingleValueEventListener singleValueEventListener;
-
-    public interface OnSingleValueEventListener{
-        void onSuccess();
-        void onError();
+    public DatabaseReference getWorksReference() {
+        return worksReference;
     }
-
-    public void setOnSingleValueEventListener(OnSingleValueEventListener listener) {
-        singleValueEventListener = listener;
-    }
-
-    public FirebaseUser getFirebaseUser() {
-        return firebaseUser;
-    }
-
-    public void setFirebaseUser(FirebaseUser firebaseUser) {
-        this.firebaseUser = firebaseUser;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public FirebaseAuth getFirebaseAuth() {
-        return firebaseAuth;
-    }
-
 }
