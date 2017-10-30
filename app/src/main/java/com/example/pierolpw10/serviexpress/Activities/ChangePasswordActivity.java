@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.example.pierolpw10.serviexpress.Managers.FirebaseManager;
 import com.example.pierolpw10.serviexpress.Models.User;
 import com.example.pierolpw10.serviexpress.R;
-import com.example.pierolpw10.serviexpress.Utils.PreferenceManager;
+import com.example.pierolpw10.serviexpress.Managers.PreferenceManager;
 import com.google.gson.Gson;
 
 public class ChangePasswordActivity extends AppCompatActivity {

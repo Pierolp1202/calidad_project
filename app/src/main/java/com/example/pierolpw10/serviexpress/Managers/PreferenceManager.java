@@ -1,12 +1,14 @@
-package com.example.pierolpw10.serviexpress.Utils;
+package com.example.pierolpw10.serviexpress.Managers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 public class PreferenceManager {
 
-    private static final String PREFERENCES_NAME = "AndroidEzi";
+    private static final String PREFERENCES_NAME = "serviexpress";
     private static final String PREFERENCE_SESSION = "session";
+    private static final String PREFERENCE_MAIL = "mail";
+    private static final String PREFERENCE_USERNAME ="username";
 
     private static PreferenceManager self;
     private final SharedPreferences mPreferences;
@@ -33,5 +35,25 @@ public class PreferenceManager {
 
     public String getPreferenceSession(){
         return mPreferences.getString(PREFERENCE_SESSION, "");
+    }
+
+    public void setPreferenceMail(String mail){
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(PREFERENCE_MAIL, mail);
+        editor.apply();
+    }
+
+    public String getPreferenceMail(){
+        return mPreferences.getString(PREFERENCE_MAIL, "");
+    }
+
+    public void setPreferenceUsername(String username){
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(PREFERENCE_USERNAME, username);
+        editor.apply();
+    }
+
+    public String getPreferenceUsername(){
+        return mPreferences.getString(PREFERENCE_USERNAME, "");
     }
 }

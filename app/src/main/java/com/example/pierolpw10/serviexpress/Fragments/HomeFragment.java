@@ -30,6 +30,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.pierolpw10.serviexpress.Managers.FirebaseManager;
+import com.example.pierolpw10.serviexpress.Managers.PreferenceManager;
+import com.example.pierolpw10.serviexpress.Models.User;
+import com.example.pierolpw10.serviexpress.Models.Work;
+import com.example.pierolpw10.serviexpress.Models.Worker;
 import com.example.pierolpw10.serviexpress.R;
 import com.example.pierolpw10.serviexpress.Utils.FirebaseConstants;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -44,8 +48,17 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -58,7 +71,9 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
     MapView mMapView;
     private GoogleMap googleMap;
     FirebaseManager manager;
+    PreferenceManager p_manager;
     Dialog dialog;
+    List<Worker> workers = new ArrayList<>();
 
     @Nullable
     @Override
@@ -69,6 +84,7 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
         mMapView.onCreate(savedInstanceState);
 
         manager = new FirebaseManager();
+        p_manager = PreferenceManager.getInstance(getActivity());
 
         mMapView.onResume(); // needed to get the map to display immediately
 
@@ -115,14 +131,35 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot data : dataSnapshot.getChildren()){
-                            Double latitud = (Double) data.child("latitud").getValue();
-                            Double longitud = (Double) data.child("longitud").getValue();
-                            String image = data.child("image").getValue(String.class);
-                            String nombre = data.child("nombres").getValue(String.class);
-                            String apellidos = data.child("apellidos").getValue(String.class);
-                            Long especialidad_long = (Long) data.child("especialidad").getValue();
-                            int especialidad = especialidad_long.intValue();
-                            addMarker(latitud, longitud, image, nombre, apellidos, especialidad);
+                        Double latitud = (Double) data.child("latitud").getValue();
+                        Double longitud = (Double) data.child("longitud").getValue();
+                        String image = data.child("image").getValue(String.class);
+                        String nombre = data.child("nombres").getValue(String.class);
+                        String apellidos = data.child("apellidos").getValue(String.class);
+                        Long especialidad_long = (Long) data.child("especialidad").getValue();
+                        int especialidad = especialidad_long.intValue();
+                        Long puntuacion_long = (Long) data.child("puntuacion").getValue();
+                        int puntuacion = puntuacion_long.intValue();
+                        Long cant_punt_long = (Long) data.child("cant_punt").getValue();
+                        int cant_punt = cant_punt_long.intValue();
+                        String worker_username = data.child("username").getValue(String.class);
+                        String mail = data.child("mail").getValue(String.class);
+                        Long phone_long = (Long) data.child("phone").getValue();
+                        String phone = phone_long.toString();
+                        boolean working = (Boolean) data.child("working").getValue();
+
+                        Worker worker = new Worker();
+                        worker.setNombre(nombre);
+                        worker.setWorking(working);
+                        worker.setApellidos(apellidos);
+                        worker.setPuntuacion(puntuacion);
+                        worker.setMail(mail);
+                        worker.setPhone(phone);
+                        worker.setCant_punt(cant_punt);
+                        worker.setEspecialidad(especialidad);
+                        worker.setUsername(worker_username);
+                        workers.add(worker);
+                        addMarker(latitud, longitud, image, nombre, apellidos, especialidad);
                     }
                 }
 
@@ -203,72 +240,73 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
     public boolean onMarkerClick(Marker marker) {
         switch (marker.getTitle()){
             case "Jorge Gonzales":
-                openDialog("Jorge Gonzales",1);
+                openDialog("Jorge Gonzales",1, "worker1");
                 break;
             case "Willy Wonka":
-                openDialog("Willy Wonka",2);
+                openDialog("Willy Wonka",2,"worker2");
                 break;
             case "Sheldon Cooper":
-                openDialog("Sheldon Cooper",3);
+                openDialog("Sheldon Cooper",3, "worker3");
                 break;
             case "Barry Allen":
-                openDialog("Barry Allen",4);
+                openDialog("Barry Allen",4, "worker4");
                 break;
             case "Slade Wilson":
-                openDialog("Slade Wilson",5);
+                openDialog("Slade Wilson",5, "worker5");
                 break;
         }
 
         return true;
     }
 
-    private void openDialog(String nombre, int esp){
-            dialog = new Dialog(getActivity(), R.style.DialogTheme);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.fragment_dialog);
+    private void openDialog(final String nombre, int esp, final String username){
+        dialog = new Dialog(getActivity(), R.style.DialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.fragment_dialog);
 
-            Button btn_accept = (Button) dialog.findViewById(R.id.bt_accept);
-            Button btn_reject = (Button) dialog.findViewById(R.id.bt_reject);
-            TextView tv_name = (TextView) dialog.findViewById(R.id.tv_name);
-            TextView tv_esp = (TextView) dialog.findViewById(R.id.tv_esp);
-            TextView tv_phone = (TextView) dialog.findViewById(R.id.tv_phone);
-            CircleImageView image = (CircleImageView) dialog.findViewById(R.id.profile_image);
+        Button btn_accept = (Button) dialog.findViewById(R.id.bt_accept);
+        Button btn_reject = (Button) dialog.findViewById(R.id.bt_reject);
+        Button bt_work = (Button) dialog.findViewById(R.id.bt_work);
+        TextView tv_name = (TextView) dialog.findViewById(R.id.tv_name);
+        TextView tv_esp = (TextView) dialog.findViewById(R.id.tv_esp);
+        TextView tv_phone = (TextView) dialog.findViewById(R.id.tv_phone);
+        CircleImageView image = (CircleImageView) dialog.findViewById(R.id.profile_image);
 
-            tv_name.setText("Nombre: " + nombre);
+        tv_name.setText("Nombre: " + nombre);
 
-            String esp_st = "Especialidad: ";
-            String phone_st = "";
+        String esp_st = "Especialidad: ";
+        String phone_st = "";
 
-            switch (esp){
-                case 1:
-                    esp_st += "Gasfitero";
-                    phone_st = "955234694";
-                    image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker1));
-                    break;
-                case 2:
-                    esp_st += "Electricista";
-                    phone_st = "934971548";
-                    image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker2));
-                    break;
-                case 3:
-                    esp_st += "Cerrajero";
-                    phone_st = "942833699";
-                    image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker3));
-                    break;
-                case 4:
-                    esp_st += "Carpintero";
-                    phone_st = "934971548";
-                    image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker4));
-                    break;
-                case 5:
-                    esp_st += "Jardinero";
-                    phone_st = "955234694";
-                    image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker5));
-                    break;
-            }
+        switch (esp){
+            case 1:
+                esp_st += "Gasfitero";
+                phone_st = "955234694";
+                image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker1));
+                break;
+            case 2:
+                esp_st += "Electricista";
+                phone_st = "934971548";
+                image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker2));
+                break;
+            case 3:
+                esp_st += "Cerrajero";
+                phone_st = "942833699";
+                image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker3));
+                break;
+            case 4:
+                esp_st += "Carpintero";
+                phone_st = "934971548";
+                image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker4));
+                break;
+            case 5:
+                esp_st += "Jardinero";
+                phone_st = "955234694";
+                image.setImageDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.worker5));
+                break;
+        }
 
-            tv_esp.setText(esp_st);
-            tv_phone.setText("Telefono: " + phone_st);
+        tv_esp.setText(esp_st);
+        tv_phone.setText("Telefono: " + phone_st);
 
         final String finalPhone_st = phone_st;
         btn_reject.setOnClickListener(new View.OnClickListener() {
@@ -276,27 +314,90 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
                 public void onClick(View v) {
                     dialog.dismiss();
                 }
-            });
+        });
 
-            btn_accept.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:"+finalPhone_st));
-                    if (ActivityCompat.checkSelfPermission(getActivity(),
-                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    startActivity(callIntent);
-                    dialog.dismiss();
-                    createWork();
+        btn_accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:"+finalPhone_st));
+                if (ActivityCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    return;
                 }
-            });
+                startActivity(callIntent);
+                dialog.dismiss();
+            }
+        });
 
-            dialog.setCanceledOnTouchOutside(true);
-            dialog.show();
+        bt_work.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(manager.getDatabase().getReference(FirebaseConstants.REF_DATA).child(FirebaseConstants.WORKERS_REF) != null) {
+                    manager.getDatabase().getReference(FirebaseConstants.REF_DATA).child(FirebaseConstants.WORKERS_REF).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot data : dataSnapshot.getChildren()){
+                                if(data.child("username").getValue(String.class).equals(username)){
+                                    if(!(Boolean) data.child("working").getValue()){
+                                        contratar(nombre,dialog);
+                                    }else{
+                                        Toast.makeText(getActivity(),"Especialista trabajando.",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        });
+
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 
-    private void createWork() {
+    private void contratar(String nombre, Dialog dialog) {
+
+        for(Worker w : workers){
+            if(nombre.equals(w.getNombre() + " " + w.getApellidos())){
+                Work work = new Work();
+
+                Gson gson = new Gson();
+                User user = gson.fromJson(p_manager.getPreferenceSession(), User.class);
+
+                work.setUsername(user.getUsername());
+                work.setWorker(nombre);
+                work.setRated(false);
+                work.setWork_rate(0);
+                Date currentTime = Calendar.getInstance().getTime();
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                String reportDate = df.format(currentTime);
+                work.setDate(reportDate);
+                work.setWork(w.getEspecialidad());
+
+                if(manager.getDatabase().getReference(FirebaseConstants.WORK_REF) == null){
+                    manager.getUsersReference().child(FirebaseConstants.WORK_REF).push();
+                }
+
+                DatabaseReference newRef = manager.getWorksReference().push();
+                newRef.setValue(work);
+
+                cambiarEstadoWorker(w.getUsername());
+
+                Toast.makeText(getActivity(),"Contrato exitoso.",Toast.LENGTH_SHORT).show();
+
+                dialog.dismiss();
+            }
+        }
+    }
+
+    private void cambiarEstadoWorker(String username) {
+        DatabaseReference ref = manager.getWorkersReference();
+        ref.child(username).child("working").setValue(true);
     }
 }

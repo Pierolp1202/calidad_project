@@ -13,7 +13,7 @@ import com.example.pierolpw10.serviexpress.R;
 import com.example.pierolpw10.serviexpress.Managers.FirebaseManager;
 import com.example.pierolpw10.serviexpress.Models.User;
 import com.example.pierolpw10.serviexpress.Utils.FirebaseConstants;
-import com.example.pierolpw10.serviexpress.Utils.PreferenceManager;
+import com.example.pierolpw10.serviexpress.Managers.PreferenceManager;
 import com.example.pierolpw10.serviexpress.Utils.Utils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -118,6 +118,8 @@ public class LoginActivity extends AppCompatActivity {
                 String json = gson.toJson(u);
 
                 p_manager.setPrefenceSession(json);
+                p_manager.setPreferenceMail(u.getMail());
+                p_manager.setPreferenceUsername(u.getUsername());
 
                 Intent i = new Intent(LoginActivity.this,MainActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

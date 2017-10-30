@@ -52,14 +52,23 @@
             android:orientation="horizontal">
 
             <Button
+                android:textSize="10dp"
                 android:id="@+id/bt_reject"
                 android:text="Cancelar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <Button
+                android:textSize="10dp"
                 android:id="@+id/bt_accept"
-                android:text="Contactar"
+                android:text="Llamar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:textSize="10dp"
+                android:id="@+id/bt_work"
+                android:text="Contratar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

@@ -44,33 +44,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle= new ActionBarDrawerToggle(this, mDrawerLayout,null, R.string.app_name, R.string.app_name);
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setHomeButtonEnabled(true);
         drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_drawer);
         drawerFragment.setUp(mDrawerLayout,true);
-
-        /*mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle("DEFENSORIA DEL PUEBLO");
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                if(isFormulario){
-                    getSupportActionBar().setTitle("REGISTRO DE UN CASO");
-                }else{
-                    getSupportActionBar().setTitle("HISTORIAL DE EXPEDIENTES");
-                }
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-            }
-        });*/
     }
 }

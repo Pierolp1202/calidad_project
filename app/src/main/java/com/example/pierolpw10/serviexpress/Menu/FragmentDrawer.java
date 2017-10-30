@@ -1,10 +1,7 @@
 package com.example.pierolpw10.serviexpress.Menu;
 
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,8 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.pierolpw10.serviexpress.Activities.LoginActivity;
@@ -27,7 +22,7 @@ import com.example.pierolpw10.serviexpress.Fragments.HistorialFragment;
 import com.example.pierolpw10.serviexpress.Fragments.HomeFragment;
 import com.example.pierolpw10.serviexpress.Models.User;
 import com.example.pierolpw10.serviexpress.R;
-import com.example.pierolpw10.serviexpress.Utils.PreferenceManager;
+import com.example.pierolpw10.serviexpress.Managers.PreferenceManager;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

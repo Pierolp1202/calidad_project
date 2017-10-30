@@ -8,16 +8,25 @@ public class Work {
     String username;
     String worker;
     String date;
-    int rating = 0;
     int work;
     String worker_image;
+    boolean rated;
+    int work_rate;
 
-    public int getRating() {
-        return rating;
+    public int getWork_rate() {
+        return work_rate;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setWork_rate(int work_rate) {
+        this.work_rate = work_rate;
+    }
+
+    public boolean isRated() {
+        return rated;
+    }
+
+    public void setRated(boolean rated) {
+        this.rated = rated;
     }
 
     public int getWork() {

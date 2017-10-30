@@ -16,6 +16,24 @@ public class Worker {
     int puntuacion;
     int especialidad;
     String phone;
+    int cant_punt;
+    boolean isWorking;
+
+    public boolean isWorking() {
+        return isWorking;
+    }
+
+    public void setWorking(boolean working) {
+        isWorking = working;
+    }
+
+    public int getCant_punt() {
+        return cant_punt;
+    }
+
+    public void setCant_punt(int cant_punt) {
+        this.cant_punt = cant_punt;
+    }
 
     public String getPhone() {
         return phone;
