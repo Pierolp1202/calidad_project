@@ -115,7 +115,6 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.MyHo
                             Long rate_long = (Long) data.child("work_rate").getValue();
                             int rate = rate_long.intValue();
                             holder.rating.setRating(rate);
-                            cambiarEstadoWorker(data.child("worker").getValue(String.class));
                         }
                     }
                 }
@@ -220,6 +219,8 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.MyHo
                             DatabaseReference ref = manager.getWorksReference();
                             ref.child(k).child("work_rate").setValue(rating);
                             cambiarEstadoRated(username,position);
+                            cambiarEstadoWorker(data.child("worker").getValue(String.class));
+                            manager.getDatabase().getReference(FirebaseConstants.REF_DATA).child(FirebaseConstants.WORK_REF).removeEventListener(this);
                             dialog.dismiss();
                         }
                     }

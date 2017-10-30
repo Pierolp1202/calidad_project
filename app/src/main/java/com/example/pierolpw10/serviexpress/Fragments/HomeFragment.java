@@ -341,6 +341,7 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
                                 if(data.child("username").getValue(String.class).equals(username)){
                                     if(!(Boolean) data.child("working").getValue()){
                                         contratar(nombre,dialog);
+                                        manager.getDatabase().getReference(FirebaseConstants.REF_DATA).child(FirebaseConstants.WORKERS_REF).removeEventListener(this);
                                     }else{
                                         Toast.makeText(getActivity(),"Especialista trabajando.",Toast.LENGTH_SHORT).show();
                                     }
@@ -397,7 +398,7 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
     }
 
     private void cambiarEstadoWorker(String username) {
-        DatabaseReference ref = manager.getWorkersReference();
-        ref.child(username).child("working").setValue(true);
+        DatabaseReference ref = manager.getWorkersReference().child(username);
+        ref.child("working").setValue(true);
     }
 }
