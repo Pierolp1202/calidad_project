@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:padding="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccione que tipo de trabajo desea"/>
+
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton
+            android:id="@+id/rb_gasfitero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gasfitero"/>
+
+        <RadioButton
+            android:id="@+id/rb_electricista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Electricista"/>
+
+        <RadioButton
+            android:id="@+id/rb_cerrajero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cerrajero"/>
+
+        <RadioButton
+            android:id="@+id/rb_carpintero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Carpintero"/>
+
+        <RadioButton
+            android:id="@+id/rb_jardinero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jardinero"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/bt_ok"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ACEPTAR"/>
+
+</RelativeLayout>

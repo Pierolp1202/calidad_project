@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,8 +24,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +39,7 @@ import com.example.pierolpw10.serviexpress.Models.Work;
 import com.example.pierolpw10.serviexpress.Models.Worker;
 import com.example.pierolpw10.serviexpress.R;
 import com.example.pierolpw10.serviexpress.Utils.FirebaseConstants;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -74,6 +78,9 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
     PreferenceManager p_manager;
     Dialog dialog;
     List<Worker> workers = new ArrayList<>();
+    FloatingActionButton action_filter;
+
+    int trabajo = 0;
 
     @Nullable
     @Override
@@ -81,6 +88,7 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         mMapView = (MapView) v.findViewById(R.id.mapView);
+        action_filter = (FloatingActionButton) v.findViewById(R.id.action_filter);
         mMapView.onCreate(savedInstanceState);
 
         manager = new FirebaseManager();
@@ -93,6 +101,15 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        showDialog();
+
+        action_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
 
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -117,7 +134,6 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
                     CameraPosition cameraPosition = new CameraPosition.Builder().target(ubicacion_lima).zoom(11).build();
                     googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                     googleMap.setOnMarkerClickListener(HomeFragment.this);
-                    getWorkers();
                 }
             }
         });
@@ -125,41 +141,158 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
         return v;
     }
 
-    private void getWorkers() {
+    private void showDialog() {
+
+       final Dialog dialog = new Dialog(getActivity());
+
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        dialog.setContentView(R.layout.dialog_filter);
+
+        final RadioButton rb_gasfitero = (RadioButton) dialog.findViewById(R.id.rb_gasfitero);
+        final RadioButton rb_electricista = (RadioButton) dialog.findViewById(R.id.rb_electricista);
+        final RadioButton rb_cerrajero = (RadioButton) dialog.findViewById(R.id.rb_cerrajero);
+        final RadioButton rb_carpintero = (RadioButton) dialog.findViewById(R.id.rb_carpintero);
+        final RadioButton rb_jardinero = (RadioButton) dialog.findViewById(R.id.rb_jardinero);
+        final Button bt_ok = (Button) dialog.findViewById(R.id.bt_ok);
+
+        rb_gasfitero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rb_gasfitero.setChecked(true);
+                rb_electricista.setChecked(false);
+                rb_cerrajero.setChecked(false);
+                rb_carpintero.setChecked(false);
+                rb_jardinero.setChecked(false);
+                trabajo = 1;
+                bt_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getWorkers(trabajo);
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        rb_electricista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rb_gasfitero.setChecked(false);
+                rb_electricista.setChecked(true);
+                rb_cerrajero.setChecked(false);
+                rb_carpintero.setChecked(false);
+                rb_jardinero.setChecked(false);
+                trabajo = 2;
+                bt_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getWorkers(trabajo);
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        rb_cerrajero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rb_gasfitero.setChecked(false);
+                rb_electricista.setChecked(false);
+                rb_cerrajero.setChecked(true);
+                rb_carpintero.setChecked(false);
+                rb_jardinero.setChecked(false);
+                trabajo = 3;
+                bt_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getWorkers(trabajo);
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        rb_carpintero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rb_gasfitero.setChecked(false);
+                rb_electricista.setChecked(false);
+                rb_cerrajero.setChecked(false);
+                rb_carpintero.setChecked(true);
+                rb_jardinero.setChecked(false);
+                trabajo = 4;
+                bt_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getWorkers(trabajo);
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        rb_jardinero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rb_gasfitero.setChecked(false);
+                rb_electricista.setChecked(false);
+                rb_cerrajero.setChecked(false);
+                rb_carpintero.setChecked(false);
+                rb_jardinero.setChecked(true);
+                trabajo = 5;
+                bt_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getWorkers(trabajo);
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+    }
+
+    private void getWorkers(final int work) {
         if(manager.getDatabase().getReference(FirebaseConstants.REF_DATA).child(FirebaseConstants.WORKERS_REF) != null) {
             manager.getDatabase().getReference(FirebaseConstants.REF_DATA).child(FirebaseConstants.WORKERS_REF).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot data : dataSnapshot.getChildren()){
-                        Double latitud = (Double) data.child("latitud").getValue();
-                        Double longitud = (Double) data.child("longitud").getValue();
-                        String image = data.child("image").getValue(String.class);
-                        String nombre = data.child("nombres").getValue(String.class);
-                        String apellidos = data.child("apellidos").getValue(String.class);
                         Long especialidad_long = (Long) data.child("especialidad").getValue();
                         int especialidad = especialidad_long.intValue();
-                        Long puntuacion_long = (Long) data.child("puntuacion").getValue();
-                        int puntuacion = puntuacion_long.intValue();
-                        Long cant_punt_long = (Long) data.child("cant_punt").getValue();
-                        int cant_punt = cant_punt_long.intValue();
-                        String worker_username = data.child("username").getValue(String.class);
-                        String mail = data.child("mail").getValue(String.class);
-                        Long phone_long = (Long) data.child("phone").getValue();
-                        String phone = phone_long.toString();
-                        boolean working = (Boolean) data.child("working").getValue();
+                        if(especialidad == work){
+                            Double latitud = (Double) data.child("latitud").getValue();
+                            Double longitud = (Double) data.child("longitud").getValue();
+                            String image = data.child("image").getValue(String.class);
+                            String nombre = data.child("nombres").getValue(String.class);
+                            String apellidos = data.child("apellidos").getValue(String.class);
+                            Long puntuacion_long = (Long) data.child("puntuacion").getValue();
+                            int puntuacion = puntuacion_long.intValue();
+                            Long cant_punt_long = (Long) data.child("cant_punt").getValue();
+                            int cant_punt = cant_punt_long.intValue();
+                            String worker_username = data.child("username").getValue(String.class);
+                            String mail = data.child("mail").getValue(String.class);
+                            Long phone_long = (Long) data.child("phone").getValue();
+                            String phone = phone_long.toString();
+                            boolean working = (Boolean) data.child("working").getValue();
 
-                        Worker worker = new Worker();
-                        worker.setNombre(nombre);
-                        worker.setWorking(working);
-                        worker.setApellidos(apellidos);
-                        worker.setPuntuacion(puntuacion);
-                        worker.setMail(mail);
-                        worker.setPhone(phone);
-                        worker.setCant_punt(cant_punt);
-                        worker.setEspecialidad(especialidad);
-                        worker.setUsername(worker_username);
-                        workers.add(worker);
-                        addMarker(latitud, longitud, image, nombre, apellidos, especialidad);
+                            Worker worker = new Worker();
+                            worker.setNombre(nombre);
+                            worker.setWorking(working);
+                            worker.setApellidos(apellidos);
+                            worker.setPuntuacion(puntuacion);
+                            worker.setMail(mail);
+                            worker.setPhone(phone);
+                            worker.setCant_punt(cant_punt);
+                            worker.setEspecialidad(especialidad);
+                            worker.setUsername(worker_username);
+                            workers.add(worker);
+                            addMarker(latitud, longitud, image, nombre, apellidos, especialidad);
+                        }
                     }
                 }
 
@@ -339,12 +472,8 @@ public class HomeFragment extends Fragment implements GoogleMap.OnMarkerClickLis
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot data : dataSnapshot.getChildren()){
                                 if(data.child("username").getValue(String.class).equals(username)){
-                                    if(!(Boolean) data.child("working").getValue()){
-                                        contratar(nombre,dialog);
-                                        manager.getDatabase().getReference(FirebaseConstants.REF_DATA).child(FirebaseConstants.WORKERS_REF).removeEventListener(this);
-                                    }else{
-                                        Toast.makeText(getActivity(),"Especialista trabajando.",Toast.LENGTH_SHORT).show();
-                                    }
+                                    contratar(nombre,dialog);
+                                    manager.getDatabase().getReference(FirebaseConstants.REF_DATA).child(FirebaseConstants.WORKERS_REF).removeEventListener(this);
                                 }
                             }
                         }

@@ -20,6 +20,7 @@ import com.example.pierolpw10.serviexpress.Fragments.AccountFragment;
 import com.example.pierolpw10.serviexpress.Fragments.HelpFragment;
 import com.example.pierolpw10.serviexpress.Fragments.HistorialFragment;
 import com.example.pierolpw10.serviexpress.Fragments.HomeFragment;
+import com.example.pierolpw10.serviexpress.Fragments.WorksFragment;
 import com.example.pierolpw10.serviexpress.Models.User;
 import com.example.pierolpw10.serviexpress.R;
 import com.example.pierolpw10.serviexpress.Managers.PreferenceManager;
@@ -60,6 +61,7 @@ public class FragmentDrawer extends Fragment {
 //        data.add(new NavDrawerItem("Help",true,true,R.drawable.video_3d));
         data.add(new NavDrawerItem("Account",true,true, 0));
         data.add(new NavDrawerItem("Home",true,true, 0));
+        data.add(new NavDrawerItem("Trabajos",true,true, 0));
         data.add(new NavDrawerItem("Historial",true,true,0));
         data.add(new NavDrawerItem("Help",true,true,0));
         data.add(new NavDrawerItem("Salir",true,true,0));
@@ -147,14 +149,18 @@ public class FragmentDrawer extends Fragment {
                             changeFragment();
                             break;
                         case 2:
-                            fragment = new HistorialFragment();
+                            fragment = new WorksFragment();
                             changeFragment();
                             break;
                         case 3:
-                            fragment = new HelpFragment();
+                            fragment = new HistorialFragment();
                             changeFragment();
                             break;
                         case 4:
+                            fragment = new HelpFragment();
+                            changeFragment();
+                            break;
+                        case 5:
                             showDialog();
 
                     }

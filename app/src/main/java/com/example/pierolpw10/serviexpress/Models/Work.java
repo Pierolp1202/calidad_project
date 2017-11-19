@@ -12,6 +12,29 @@ public class Work {
     String worker_image;
     boolean rated;
     int work_rate;
+    boolean end;
+
+    public Work() {
+    }
+
+    public Work(String username, String worker, String date, int work, String worker_image, boolean rated, int work_rate, boolean end) {
+        this.username = username;
+        this.worker = worker;
+        this.date = date;
+        this.work = work;
+        this.worker_image = worker_image;
+        this.rated = rated;
+        this.work_rate = work_rate;
+        this.end = end;
+    }
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public void setEnd(boolean end) {
+        this.end = end;
+    }
 
     public int getWork_rate() {
         return work_rate;
